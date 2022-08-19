@@ -23,7 +23,7 @@ contract XSendMock {
     }
 
     function xSendSomeValue(uint256 _value) external payable { // should later on be changed to onlyDao/ onlyKeeper
-        IXProviderMock(xprovider).xSend(_value);
+        IXProviderMock(xprovider).xSend{value: msg.value}(_value);
     }
 
     function xTransferFunds(address to, address asset, uint32 originDomain, uint32 destinationDomain, uint256 amount) external { // should later on be changed to onlyDao/ onlyKeeper
