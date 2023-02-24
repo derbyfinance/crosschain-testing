@@ -1,13 +1,17 @@
-# Sample Hardhat Project
+## for testing run npx hardhat node
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a script that deploys that contract.
+### deploy all contracts on given network
 
-Try running some of the following tasks:
+npx hardhat --network localhost deploy
 
-```shell
-npx hardhat help
-npx hardhat test
-REPORT_GAS=true npx hardhat test
-npx hardhat node
-npx hardhat run scripts/deploy.ts
-```
+### deploy all contracts and resets the deployments from scratch
+
+npx hardhat --network localhost deploy --reset
+
+### deploy given contract
+
+npx hardhat --network localhost deploy --tags SourceGreeter
+
+### verify contracts on goerli
+
+npx hardhat --network goerli etherscan-verify

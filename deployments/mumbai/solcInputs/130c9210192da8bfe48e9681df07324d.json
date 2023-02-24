@@ -1,0 +1,41 @@
+{
+  "language": "Solidity",
+  "sources": {
+    "@connext/smart-contracts/contracts/core/connext/interfaces/IXReceiver.sol": {
+      "content": "// SPDX-License-Identifier: UNLICENSED\npragma solidity 0.8.17;\n\ninterface IXReceiver {\n  function xReceive(\n    bytes32 _transferId,\n    uint256 _amount,\n    address _asset,\n    address _originSender,\n    uint32 _origin,\n    bytes memory _callData\n  ) external returns (bytes memory);\n}\n"
+    },
+    "@openzeppelin/contracts/token/ERC20/IERC20.sol": {
+      "content": "// SPDX-License-Identifier: MIT\n// OpenZeppelin Contracts (last updated v4.6.0) (token/ERC20/IERC20.sol)\n\npragma solidity ^0.8.0;\n\n/**\n * @dev Interface of the ERC20 standard as defined in the EIP.\n */\ninterface IERC20 {\n    /**\n     * @dev Emitted when `value` tokens are moved from one account (`from`) to\n     * another (`to`).\n     *\n     * Note that `value` may be zero.\n     */\n    event Transfer(address indexed from, address indexed to, uint256 value);\n\n    /**\n     * @dev Emitted when the allowance of a `spender` for an `owner` is set by\n     * a call to {approve}. `value` is the new allowance.\n     */\n    event Approval(address indexed owner, address indexed spender, uint256 value);\n\n    /**\n     * @dev Returns the amount of tokens in existence.\n     */\n    function totalSupply() external view returns (uint256);\n\n    /**\n     * @dev Returns the amount of tokens owned by `account`.\n     */\n    function balanceOf(address account) external view returns (uint256);\n\n    /**\n     * @dev Moves `amount` tokens from the caller's account to `to`.\n     *\n     * Returns a boolean value indicating whether the operation succeeded.\n     *\n     * Emits a {Transfer} event.\n     */\n    function transfer(address to, uint256 amount) external returns (bool);\n\n    /**\n     * @dev Returns the remaining number of tokens that `spender` will be\n     * allowed to spend on behalf of `owner` through {transferFrom}. This is\n     * zero by default.\n     *\n     * This value changes when {approve} or {transferFrom} are called.\n     */\n    function allowance(address owner, address spender) external view returns (uint256);\n\n    /**\n     * @dev Sets `amount` as the allowance of `spender` over the caller's tokens.\n     *\n     * Returns a boolean value indicating whether the operation succeeded.\n     *\n     * IMPORTANT: Beware that changing an allowance with this method brings the risk\n     * that someone may use both the old and the new allowance by unfortunate\n     * transaction ordering. One possible solution to mitigate this race\n     * condition is to first reduce the spender's allowance to 0 and set the\n     * desired value afterwards:\n     * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729\n     *\n     * Emits an {Approval} event.\n     */\n    function approve(address spender, uint256 amount) external returns (bool);\n\n    /**\n     * @dev Moves `amount` tokens from `from` to `to` using the\n     * allowance mechanism. `amount` is then deducted from the caller's\n     * allowance.\n     *\n     * Returns a boolean value indicating whether the operation succeeded.\n     *\n     * Emits a {Transfer} event.\n     */\n    function transferFrom(\n        address from,\n        address to,\n        uint256 amount\n    ) external returns (bool);\n}\n"
+    },
+    "contracts/DestinationGreeter.sol": {
+      "content": "// SPDX-License-Identifier: UNLICENSED\r\npragma solidity ^0.8.15;\r\n\r\nimport {IXReceiver} from \"@connext/smart-contracts/contracts/core/connext/interfaces/IXReceiver.sol\";\r\nimport {IERC20} from \"@openzeppelin/contracts/token/ERC20/IERC20.sol\";\r\n\r\n/**\r\n * @title DestinationGreeter\r\n * @notice Example destination contract that stores a greeting.\r\n */\r\ncontract DestinationGreeter is IXReceiver {\r\n  string public greeting;\r\n\r\n  // The token to be paid on this domain\r\n  IERC20 public immutable token;\r\n\r\n  constructor(address _token) {\r\n    token = IERC20(_token);\r\n  }\r\n\r\n  /** @notice The receiver function as required by the IXReceiver interface.\r\n   * @dev The Connext bridge contract will call this function.\r\n   */\r\n  function xReceive(\r\n    bytes32 _transferId,\r\n    uint256 _amount,\r\n    address _asset,\r\n    address _originSender,\r\n    uint32 _origin,\r\n    bytes memory _callData\r\n  ) external returns (bytes memory) {\r\n    // Check for the right token\r\n    require(_asset == address(token), \"Wrong asset received\");\r\n    // Enforce a cost to update the greeting\r\n    require(_amount > 0, \"Must pay at least 1 wei\");\r\n\r\n    // Unpack the _callData\r\n    string memory newGreeting = abi.decode(_callData, (string));\r\n\r\n    _updateGreeting(newGreeting);\r\n  }\r\n\r\n  /** @notice Internal function to update the greeting.\r\n   * @param newGreeting The new greeting.\r\n   */\r\n  function _updateGreeting(string memory newGreeting) internal {\r\n    greeting = newGreeting;\r\n  }\r\n}\r\n"
+    }
+  },
+  "settings": {
+    "optimizer": {
+      "enabled": true,
+      "runs": 5
+    },
+    "outputSelection": {
+      "*": {
+        "*": [
+          "abi",
+          "evm.bytecode",
+          "evm.deployedBytecode",
+          "evm.methodIdentifiers",
+          "metadata",
+          "devdoc",
+          "userdoc",
+          "storageLayout",
+          "evm.gasEstimates"
+        ],
+        "": [
+          "ast"
+        ]
+      }
+    },
+    "metadata": {
+      "useLiteralContent": true
+    }
+  }
+}
