@@ -15,3 +15,7 @@ npx hardhat --network localhost deploy --tags SourceGreeter
 ### verify contracts on goerli
 
 npx hardhat --network goerli etherscan-verify
+
+### run scripts on given network
+
+npx hardhat --network goerli run scripts/test.ts
