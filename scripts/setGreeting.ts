@@ -1,5 +1,5 @@
 import { ethers } from 'hardhat';
-import { goerliTestToken } from '../test/helpers/addresses';
+import { connextGoerli } from '../test/helpers/addresses';
 
 import { abi } from '../artifacts/@openzeppelin/contracts/token/ERC20/IERC20.sol/IERC20.json';
 import { getContract, getTestnetSigner } from '../test/helpers/helpers';
@@ -14,7 +14,7 @@ async function main() {
 
   const signer = await getTestnetSigner();
   const sourceContract = await getContract('SourceGreeter');
-  const testToken = new ethers.Contract(goerliTestToken, abi);
+  const testToken = new ethers.Contract(connextGoerli.token, abi);
 
   await testToken
     .connect(signer)
