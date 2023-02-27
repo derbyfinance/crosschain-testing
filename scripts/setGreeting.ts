@@ -1,8 +1,8 @@
 import { ethers } from 'hardhat';
-import { goerliTestToken } from '../test/addresses';
+import { goerliTestToken } from '../test/helpers/addresses';
 
 import { abi } from '../artifacts/@openzeppelin/contracts/token/ERC20/IERC20.sol/IERC20.json';
-import { getContract, getTestnetSigner } from '../test/helpers';
+import { getContract, getTestnetSigner } from '../test/helpers/helpers';
 
 // set greeting and send funds to mumbai
 async function main() {
