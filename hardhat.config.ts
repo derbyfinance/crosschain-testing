@@ -37,6 +37,16 @@ const config: HardhatUserConfig = {
         },
       },
     },
+    goerliOptimism: {
+      url: process.env.GOERLI_OPTIMISM_URL ?? '',
+      accounts: pkeys,
+      verify: {
+        etherscan: {
+          apiUrl: 'https://api-goerli-optimistic.etherscan.io/',
+          apiKey: process.env.OPTIMISM_API_KEY as string,
+        },
+      },
+    },
     mumbai: {
       url: process.env.MUMBAI_URL ?? '',
       accounts: pkeys,

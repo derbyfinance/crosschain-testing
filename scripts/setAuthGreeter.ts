@@ -5,13 +5,15 @@ import { getContract, getTestnetSigner } from '../test/helpers/helpers';
 
 // set greeting and send funds to mumbai
 async function main() {
-  const destination = '0xa92854ac369eb7cf4241fd2ebb01b9596892d07e';
-  const destinationDomain = connextMumbai.id;
-  const newGreeting = 'Heel mooi';
-  const relayerFee = ethers.utils.parseEther('0.03');
+  const destination = '0xf8c56205CFfF96C7032ee251d61E1A007cF1aa48';
+  const destinationDomain = connextGoerli.id;
+  const newGreeting = 'Van Opti naar Goerli';
+  const relayerFee = ethers.utils.parseEther('0.025');
 
-  const sourceContract = await getContract('AuthGreeterGoerli', 'AuthGreeter');
+  const sourceContract = await getContract('AuthGreeterGoerliOptimism', 'AuthGreeter');
   const signer = await getTestnetSigner();
+
+  console.log(sourceContract.address);
 
   await sourceContract
     .connect(signer)
