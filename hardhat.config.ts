@@ -37,6 +37,16 @@ const config: HardhatUserConfig = {
         },
       },
     },
+    goerliArbitrum: {
+      url: process.env.ARBITRUM_GOERLI_URL ?? '',
+      accounts: pkeys,
+      verify: {
+        etherscan: {
+          apiUrl: 'https://api-goerli.arbiscan.io/',
+          apiKey: process.env.ARBITRUM_API_KEY as string,
+        },
+      },
+    },
     goerliOptimism: {
       url: process.env.GOERLI_OPTIMISM_URL ?? '',
       accounts: pkeys,

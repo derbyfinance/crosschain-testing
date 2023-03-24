@@ -15,3 +15,11 @@ export const connextOptimism = {
   connext: '0x5Ea1bb242326044699C3d81341c5f535d5Af1504',
   token: '0x68Db1c8d85C09d546097C65ec7DCBFF4D6497CbF',
 };
+
+export const connextArbitrumGoerli = {
+  id: 1734439522,
+  connext: '0x2075c9E31f973bb53CAE5BAC36a8eeB4B082ADC2',
+  token: '0xDC805eAaaBd6F68904cA706C221c72F8a8a68F9f',
+};
+
+// 0x0000000000000000000000000000000000000000

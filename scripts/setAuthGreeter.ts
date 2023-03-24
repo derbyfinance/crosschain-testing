@@ -3,14 +3,13 @@ import { connextGoerli, connextMumbai } from '../test/helpers/addresses';
 import { abi } from '../artifacts/@openzeppelin/contracts/token/ERC20/IERC20.sol/IERC20.json';
 import { getContract, getTestnetSigner } from '../test/helpers/helpers';
 
-// set greeting and send funds to mumbai
 async function main() {
-  const destination = '0xa92854Ac369Eb7Cf4241Fd2EbB01B9596892d07E';
-  const destinationDomain = connextMumbai.id;
-  const newGreeting = 'Goerli => mumbai tx4';
+  const destination = '0xf8c56205CFfF96C7032ee251d61E1A007cF1aa48';
+  const destinationDomain = connextGoerli.id;
+  const newGreeting = 'Opti => Goerli :';
   const relayerFee = ethers.utils.parseEther('0.03');
 
-  const sourceContract = await getContract('AuthGreeterGoerli', 'AuthGreeter');
+  const sourceContract = await getContract('AuthGreeterGoerliOptimism', 'AuthGreeter');
   const signer = await getTestnetSigner();
 
   console.log(sourceContract.address);
@@ -26,12 +25,16 @@ main().catch((error) => {
   console.error(error);
   process.exitCode = 1;
 });
+
 /* 
 ConnextExample Goerli => Mumbai DONE
 https://testnet.connextscan.io/tx/0x06f7067742c6a9e7f393aae43b6cbf5dde787c71b6cff8203b5c82c237da6a65
 
 AuthGreeter Goerli => Mumbai DONE
 https://testnet.connextscan.io/tx/0x20231bc58a71d4e269b776e17f14ddaaad3ac70962275754f680400d7c5a74d4
+
+AuthGreeter Goerli => Mumbai DONE Werkt
+https://testnet.connextscan.io/tx/0xaff6e07f2db0ba04cb3ec37c852418e400cc6466da68cf56f3239b404499db9a?src=search
 
 XProvider Mumbai => Goerli PENDING
 https://testnet.connextscan.io/tx/0xcfa0919a59732f29b9afe17e3631388d3309f09417ca0b66fa12b4c202ce94f7
